@@ -1,17 +1,24 @@
 import express from 'express';
+import cors from 'cors';
 
 const app = express();
- app.use(express.json());
+app.use(express.json());
+app.use(cors());
 
- const users = [];
+const users = [];
+const tweets = [];
 
- app.post('/sign-up', (req, res) => {
-    users.push(req.body);
-    res.send(req.body);
- });
+app.post('/sign-up', (req, res) => {
+   const user = req.body;
+   if (Object.keys(user).length === 2) {
+      users.push(user);
+      res.send("ok");
+   }
+   res.status(409).send("tamanho errado")
+});
 
- app.get('/users', (req, res) => {
-    res.send(users)
- });
+app.get('/users', (req, res) => {
+   res.send(users)
+});
 
- app.listen(5000);
+app.listen(5000);
