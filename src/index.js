@@ -17,17 +17,24 @@ app.post('/sign-up', (req, res) => {
    res.status(409).send("tamanho errado")
 });
 
-app.post('/tweeets', (req, res) => {
+app.post('/tweets', (req, res) => {
    const tweet = req.body;
    if (Object.keys(tweet).length === 2) {
-      users.push(tweet);
+      tweets.push(tweet);
       res.send("ok");
    }
    res.status(409).send("tamanho errado")
 });
 
 app.get('/tweets', (req, res) => {
-})
+   const getTweets = tweets.map((tw) => {
+      return {
+         ...tw,
+         avatar: users.find((usr) => usr.username === tw.username).avatar
+      }
+   });
+   res.send(getTweets.slice(-10));
+});
 
 app.get('/users', (req, res) => {
    res.send(users)
