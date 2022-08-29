@@ -17,6 +17,18 @@ app.post('/sign-up', (req, res) => {
    res.status(409).send("tamanho errado")
 });
 
+app.post('/tweeets', (req, res) => {
+   const tweet = req.body;
+   if (Object.keys(tweet).length === 2) {
+      users.push(tweet);
+      res.send("ok");
+   }
+   res.status(409).send("tamanho errado")
+});
+
+app.get('/tweets', (req, res) => {
+})
+
 app.get('/users', (req, res) => {
    res.send(users)
 });
